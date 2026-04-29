@@ -1,0 +1,13 @@
+{
+  "name": "reto34-codearts-app",
+  "version": "1.0.0",
+  "description": "Aplicación web Node.js para despliegue automatizado con Docker, Kubernetes y CI/CD",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.3",
+    "mongoose": "^8.2.1"
+  }
+}
