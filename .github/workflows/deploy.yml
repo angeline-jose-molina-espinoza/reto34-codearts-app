@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build-and-push:
+  build-push-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -24,3 +24,11 @@ jobs:
 
     - name: Push a Docker Hub
       run: docker push angelinecodearts/reto34-codearts-app:latest
+
+    - name: Configurar kubectl
+      run: |
+        mkdir -p ~/.kube
+        echo "${{ secrets.KUBE_CONFIG }}" | base64 -d > ~/.kube/config
+
+    - name: Desplegar nueva version en AKS
+      run: kubectl rollout restart deployment/codearts-app
