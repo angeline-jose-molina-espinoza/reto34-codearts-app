@@ -25,10 +25,13 @@ jobs:
     - name: Push a Docker Hub
       run: docker push angelinecodearts/reto34-codearts-app:latest
 
-    - name: Configurar kubectl
-      run: |
-        mkdir -p ~/.kube
-        echo "${{ secrets.KUBE_CONFIG }}" | base64 -d > ~/.kube/config
+    - name: Login Azure
+      uses: azure/login@v2
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Conectar con AKS
+      run: az aks get-credentials --resource-group aks-codearts_group --name aks-codearts --overwrite-existing
 
     - name: Desplegar nueva version en AKS
       run: kubectl rollout restart deployment/codearts-app
